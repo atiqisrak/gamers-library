@@ -1,0 +1,208 @@
+[
+    {
+        "name": "Grand Theft Auto V",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Rockstar Games",
+        "genres": [
+            "Action",
+            "Adventure"
+        ],
+        "rating": 4.52,
+        "price": 1300,
+        "offer_price": 1100,
+        "image": "gta5.jpeg"
+    },
+    {
+        "name": "Tom Clancy's Rainbow Six® Siege",
+        "edition": "Deluxe",
+        "platform": "PS5 & PS4",
+        "publisher": "Ubisoft",
+        "genres": [
+            "Action",
+            "Shooter"
+        ],
+        "rating": 4.5,
+        "price": 1200,
+        "offer_price": 678,
+        "image": "rainbow6.jpeg"
+    },
+    {
+        "name": "Marvel’s Spider-Man 2",
+        "edition": "Standard",
+        "platform": "PS5",
+        "publisher": "Sony",
+        "genres": [
+            "Action",
+            "Adventure"
+        ],
+        "rating": 4.8,
+        "price": 1500,
+        "offer_price": 1387,
+        "image": "spiderman2.jpeg"
+    },
+    {
+        "name": "Assassin's Creed® Mirage",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Ubisoft",
+        "genres": [
+            "Action",
+            "Adventure"
+        ],
+        "rating": 4.6,
+        "price": 1400,
+        "offer_price": 785,
+        "image": "mirage.jpeg"
+    },
+    {
+        "name": "Assassin’s Creed Shadows",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Ubisoft",
+        "genres": [
+            "Action",
+            "Adventure"
+        ],
+        "rating": 4.7,
+        "price": 1400,
+        "offer_price": 936,
+        "image": "shadows.jpeg"
+    },
+    {
+        "name": "Call of Duty®: Black Ops Cold War",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Activision",
+        "genres": [
+            "Action",
+            "Shooter"
+        ],
+        "rating": 4.5,
+        "price": 1300,
+        "offer_price": 855,
+        "image": "BlackOpsColdWar.jpeg"
+    },
+    {
+        "name": "Call of Duty®: Modern Warfare® 3",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Activision",
+        "genres": [
+            "Action",
+            "Shooter"
+        ],
+        "rating": 4.5,
+        "price": 1200,
+        "offer_price": 645,
+        "image": "CallofDutyMW3.jpeg"
+    },
+    {
+        "name": "Call of Duty®: Warzone",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Activision",
+        "genres": [
+            "Action",
+            "Shooter"
+        ],
+        "rating": 4.5,
+        "price": 1200,
+        "offer_price": 867,
+        "image": "CallofDutyWarzone.jpeg"
+    },
+    {
+        "name": "FIFA 24 Ultimate Edition",
+        "edition": "Ultimate",
+        "platform": "PS5 & PS4",
+        "publisher": "EA Sports",
+        "genres": [
+            "Sports"
+        ],
+        "rating": 4.5,
+        "price": 1300,
+        "offer_price": 1250,
+        "image": "fifa24UltimateEdition.jpeg"
+    },
+    {
+        "name": "FIFA 24",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "EA Sports",
+        "genres": [
+            "Sports"
+        ],
+        "rating": 4.5,
+        "price": 2200,
+        "offer_price": 1920,
+        "image": "fifa24.jpeg"
+    },
+    {
+        "name": "Madden NFL 22",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "EA Sports",
+        "genres": [
+            "Sports"
+        ],
+        "rating": 4.5,
+        "price": 1900,
+        "offer_price": 685,
+        "image": "Madden.jpeg"
+    },
+    {
+        "name": "Mortal Kombat 11",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Warner Bros. Interactive Entertainment",
+        "genres": [
+            "Fighting"
+        ],
+        "rating": 4.5,
+        "price": 1200,
+        "offer_price": 779,
+        "image": "mortalkombat11.jpeg"
+    },
+    {
+        "name": "Battlefield 42",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "EA",
+        "genres": [
+            "Action",
+            "Shooter"
+        ],
+        "rating": 4.5,
+        "price": 1200,
+        "offer_price": 384,
+        "image": "Battlefield42.jpeg"
+    },
+    {
+        "name": "The Last of Us",
+        "edition": "Standard",
+        "platform": "PS5 & PS4",
+        "publisher": "Sony",
+        "genres": [
+            "Action",
+            "Adventure"
+        ],
+        "rating": 4.5,
+        "price": 1200,
+        "offer_price": 998,
+        "image": "TheLastofUs.jpeg"
+    },
+    {
+        "name": "Marvel's Spider-Man Remastered",
+        "edition": "Standard",
+        "platform": "PS5",
+        "publisher": "Sony",
+        "genres": [
+            "Action",
+            "Adventure"
+        ],
+        "rating": 4.5,
+        "price": 1200,
+        "offer_price": 798,
+        "image": "MarvelSpider-ManRemastered.jpeg"
+    }
+]
