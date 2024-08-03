@@ -1,42 +1,10 @@
 const User = require("../models/User");
 const DeletedUser = require("../models/DeletedUser");
+const Role = require("../models/Role");
 const { generateToken } = require("../utils/jwt");
 const { check, validationResult } = require("express-validator");
 
 // Create User
-// exports.createUser = [
-//   check("username")
-//     .isAlphanumeric()
-//     .withMessage("Username must be alphanumeric"),
-//   check("email").isEmail().withMessage("Email is not valid"),
-//   check("password")
-//     .isLength({ min: 6 })
-//     .withMessage("Password must be at least 6 characters long"),
-//   async (req, res) => {
-//     const errors = validationResult(req);
-//     if (!errors.isEmpty()) {
-//       return res.status(400).json({ errors: errors.array() });
-//     }
-
-//     const { username, email, password } = req.body;
-//     try {
-//       const user = new User({ username, email, password });
-//       await user.save();
-
-//       res.status(201).json({
-//         message: "User created successfully.",
-//         user: {
-//           _id: user._id,
-//           username: user.username,
-//           email: user.email,
-//         },
-//       });
-//     } catch (error) {
-//       console.error("Error creating user:", error);
-//       res.status(500).json({ message: "Error creating user", error });
-//     }
-//   },
-// ];
 exports.createUser = [
   check("username")
     .isAlphanumeric()
@@ -62,6 +30,8 @@ exports.createUser = [
       if (customerRole) {
         user.roles.push(customerRole._id);
         await user.save();
+      } else {
+        return res.status(500).json({ message: "Customer role not found" });
       }
 
       let responseMessage = "User created successfully.";
@@ -72,21 +42,9 @@ exports.createUser = [
         if (!superadminRole) {
           return res.status(500).json({ message: "Superadmin role not found" });
         }
-        const userRole = new UserRole({
-          userId: user._id,
-          roleId: superadminRole._id,
-        });
-        await userRole.save();
+        user.roles.push(superadminRole._id);
+        await user.save();
         responseMessage += " Superadmin role assigned.";
-        return res.status(201).json({
-          message: responseMessage,
-          user: {
-            _id: user._id,
-            username: user.username,
-            email: user.email,
-            role: "superadmin",
-          },
-        });
       }
 
       res.status(201).json({
@@ -95,6 +53,7 @@ exports.createUser = [
           _id: user._id,
           username: user.username,
           email: user.email,
+          roles: user.roles,
         },
       });
     } catch (error) {
@@ -104,7 +63,6 @@ exports.createUser = [
   },
 ];
 
-// Create bulk user
 // Bulk Create Users
 exports.bulkCreateUsers = [
   check("users").isArray().withMessage("Users should be an array"),
@@ -159,8 +117,9 @@ exports.loginUser = [
             _id: user._id,
             username: user.username,
             email: user.email,
-            role: user.role,
+            roles: user.roles,
           },
+          token: token,
         });
       } else {
         res.status(401).json({ message: "Invalid email or password" });
@@ -230,7 +189,7 @@ exports.updateUser = [
           _id: user._id,
           username: user.username,
           email: user.email,
-          role: user.role,
+          roles: user.roles,
         },
       });
     } catch (error) {
@@ -239,23 +198,6 @@ exports.updateUser = [
     }
   },
 ];
-
-// Delete User
-// exports.deleteUser = async (req, res) => {
-//   console.log("Delete request received for user ID:", req.params.id); // Log request
-//   try {
-//     const user = await User.findByIdAndDelete(req.params.id);
-//     if (!user) {
-//       console.log("User not found"); // Log if user not found
-//       return res.status(404).json({ message: "User not found" });
-//     }
-//     console.log("User deleted successfully"); // Log successful deletion
-//     res.status(200).json({ message: "User deleted successfully" });
-//   } catch (error) {
-//     console.error("Error deleting user:", error); // Log any error
-//     res.status(500).json({ message: "Error deleting user", error });
-//   }
-// };
 
 // Soft delete
 exports.deleteUser = async (req, res) => {
