@@ -57,6 +57,13 @@ exports.createUser = [
       const user = new User({ username, email, password });
       await user.save();
 
+      // Automatically assign 'customer' role
+      const customerRole = await Role.findOne({ name: "customer" });
+      if (customerRole) {
+        user.roles.push(customerRole._id);
+        await user.save();
+      }
+
       let responseMessage = "User created successfully.";
 
       if (userCount === 0) {
@@ -197,32 +204,41 @@ exports.getUserById = async (req, res) => {
 };
 
 // Update User
-exports.updateUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+exports.updateUser = [
+  check("username")
+    .isAlphanumeric()
+    .withMessage("Username must be alphanumeric"),
+  check("email").isEmail().withMessage("Email is not valid"),
+  check("password")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long"),
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      user.username = req.body.username || user.username;
+      user.email = req.body.email || user.email;
+      if (req.body.password) {
+        user.password = req.body.password;
+      }
+      await user.save();
+      res.status(200).json({
+        message: "User updated successfully",
+        user: {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          role: user.role,
+        },
+      });
+    } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ message: "Error updating user", error });
     }
-    user.username = req.body.username || user.username;
-    user.email = req.body.email || user.email;
-    if (req.body.password) {
-      user.password = req.body.password;
-    }
-    await user.save();
-    res.status(200).json({
-      message: "User updated successfully",
-      user: {
-        _id: user._id,
-        username: user.username,
-        email: user.email,
-        role: user.role,
-      },
-    });
-  } catch (error) {
-    console.error("Error updating user:", error);
-    res.status(500).json({ message: "Error updating user", error });
-  }
-};
+  },
+];
 
 // Delete User
 // exports.deleteUser = async (req, res) => {

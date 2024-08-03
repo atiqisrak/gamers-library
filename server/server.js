@@ -12,10 +12,17 @@ const adminRoutes = require("./routes/adminRoutes");
 const customerRoutes = require("./routes/customerRoutes");
 const roleRoutes = require("./routes/roleRoutes");
 const permissionRoutes = require("./routes/permissionRoutes");
+const session = require("./config/session");
 
 require("dotenv").config();
 
 const app = express();
+
+app.use(session);
+
+// Apply session timeout middleware to protected routes
+app.use("/api", sessionTimeout);
+
 const port = process.env.PORT || 3000;
 
 // Middleware

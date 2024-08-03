@@ -1,6 +1,13 @@
 const Permission = require("../models/Permission");
 const Role = require("../models/Role");
 const { check, validationResult } = require("express-validator");
+const sendEmail = require("../utils/emailService");
+
+async function notifyRoleChange(user, newRole) {
+  const subject = "Role Change Notification";
+  const message = `Your role has been changed to ${newRole}.`;
+  await sendEmail(user.email, subject, message);
+}
 
 // Create Role
 exports.createRole = [
@@ -111,6 +118,12 @@ exports.updateRole = [
       role.name = name;
       role.permissions = permissions;
       await role.save();
+
+      // Notify users of role change
+      const users = await User.find({ roles: role._id });
+      for (const user of users) {
+        await notifyRoleChange(user, role.name);
+      }
 
       res.status(200).json({
         message: "Role updated successfully",
