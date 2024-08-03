@@ -8,6 +8,10 @@ const fs = require("fs");
 const https = require("https");
 const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/userRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const customerRoutes = require("./routes/customerRoutes");
+const roleRoutes = require("./routes/roleRoutes");
+const permissionRoutes = require("./routes/permissionRoutes");
 
 require("dotenv").config();
 
@@ -34,6 +38,10 @@ app.use(
 
 // Routes
 app.use("/api/users", userRoutes);
+app.use("/api/admins", adminRoutes);
+app.use("/api/customers", customerRoutes);
+app.use("/api/roles", roleRoutes);
+app.use("/api/permissions", permissionRoutes);
 
 // MongoDB Connection
 mongoose
