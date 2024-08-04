@@ -113,10 +113,65 @@ exports.bulkCreateUsers = [
     const { users } = req.body;
 
     try {
-      const createdUsers = await User.insertMany(users);
+      const customerRole = await Role.findOne({ name: "customer" }).populate(
+        "permissions"
+      );
+      if (!customerRole) {
+        return res.status(500).json({ message: "Customer role not found" });
+      }
+
+      const createdUsers = await Promise.all(
+        users.map(async (userData) => {
+          const user = new User(userData);
+          await user.save();
+
+          // Automatically assign 'customer' role
+          user.roles.push(customerRole._id);
+          await user.save();
+
+          // Add user to the Customer collection
+          const customer = new Customer({
+            userId: user._id,
+            roles: user.roles,
+            permissions: customerRole.permissions,
+          });
+          await customer.save();
+
+          // Create user details
+          const userDetails = new UserDetails({
+            userId: user._id,
+            online_id: user.username, // Assuming online_id is the same as username
+            firstName: "",
+            lastName: "",
+            dateOfBirth: new Date(), // Default date, should be updated later
+            gender: "other", // Default value, should be updated later
+            phone: "",
+            address: {
+              street: "",
+              city: "",
+              state: "",
+              postalCode: "",
+              country: "",
+            },
+            roles: [customerRole._id],
+            permissions: customerRole.permissions.map(
+              (permission) => permission._id
+            ),
+          });
+          await userDetails.save();
+
+          return user;
+        })
+      );
+
       res.status(201).json({
         message: "Users created successfully",
-        users: createdUsers,
+        users: createdUsers.map((user) => ({
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          roles: user.roles,
+        })),
       });
     } catch (error) {
       console.error("Error creating users:", error);
