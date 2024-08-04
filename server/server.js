@@ -15,6 +15,7 @@ const customerRoutes = require("./routes/customerRoutes");
 const roleRoutes = require("./routes/roleRoutes");
 const permissionRoutes = require("./routes/permissionRoutes");
 const roleAssignmentRoutes = require("./routes/roleAssignmentRoutes");
+const { swaggerUi, specs } = require("./swagger");
 
 require("dotenv").config();
 
@@ -42,13 +43,10 @@ app.use(session);
 // Apply session timeout middleware to protected routes
 app.use(sessionTimeout);
 
+// Swagger setup
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
 // Routes
-// app.use("/api/users", userRoutes);
-// app.use("/api/admins", adminRoutes);
-// app.use("/api/customers", customerRoutes);
-// app.use("/api/roles", roleRoutes);
-// app.use("/api/roleAssignments", roleAssignmentRoutes);
-// app.use("/api/permissions", permissionRoutes);
 
 app.use(`/api/${apiVersion}/users`, userRoutes);
 app.use(`/api/${apiVersion}/admins`, adminRoutes);
