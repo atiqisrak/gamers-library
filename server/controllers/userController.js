@@ -1,6 +1,8 @@
 const User = require("../models/User");
 const DeletedUser = require("../models/DeletedUser");
 const Role = require("../models/Role");
+const Customer = require("../models/Customer");
+const UserDetails = require("../models/UserDetails");
 const { generateToken } = require("../utils/jwt");
 const { check, validationResult } = require("express-validator");
 
@@ -33,6 +35,37 @@ exports.createUser = [
       } else {
         return res.status(500).json({ message: "Customer role not found" });
       }
+
+      // Add user to the Customer collection
+      const customer = new Customer({
+        userId: user._id,
+        roles: user.roles,
+        permissions: customerRole.permissions,
+      });
+      await customer.save();
+
+      // Create user details
+      const userDetails = new UserDetails({
+        userId: user._id,
+        online_id: username,
+        firstName: "",
+        lastName: "",
+        dateOfBirth: new Date(),
+        gender: "male",
+        phone: "",
+        address: {
+          street: "",
+          city: "",
+          state: "",
+          postalCode: "",
+          country: "",
+        },
+        roles: [customerRole._id],
+        permissions: customerRole.permissions.map(
+          (permissions) => permissions._id
+        ),
+      });
+      await userDetails.save();
 
       let responseMessage = "User created successfully.";
 

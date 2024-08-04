@@ -9,31 +9,26 @@ const UserDetailsSchema = new Schema({
   },
   firstName: {
     type: String,
-    required: true,
   },
   lastName: {
     type: String,
-    required: true,
   },
   dateOfBirth: {
     type: Date,
-    required: true,
   },
   gender: {
     type: String,
     enum: ["male", "female", "other"],
-    required: true,
   },
   phone: {
     type: String,
-    required: true,
   },
   address: {
-    street: { type: String, required: true },
-    city: { type: String, required: true },
-    state: { type: String, required: true },
-    postalCode: { type: String, required: true },
-    country: { type: String, required: true },
+    street: { type: String },
+    city: { type: String },
+    state: { type: String },
+    postalCode: { type: String },
+    country: { type: String },
   },
   profilePicture: {
     type: String,
@@ -45,7 +40,6 @@ const UserDetailsSchema = new Schema({
   online_id: {
     type: String,
     ref: "User",
-    required: true,
   },
   online_status: {
     type: Number,
