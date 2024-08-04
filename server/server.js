@@ -21,6 +21,7 @@ require("dotenv").config();
 const app = express();
 
 const port = process.env.PORT || 3000;
+const apiVersion = process.env.API_VERSION || "v1";
 
 // Middleware
 app.use(bodyParser.json());
@@ -42,12 +43,19 @@ app.use(session);
 app.use(sessionTimeout);
 
 // Routes
-app.use("/api/users", userRoutes);
-app.use("/api/admins", adminRoutes);
-app.use("/api/customers", customerRoutes);
-app.use("/api/roles", roleRoutes);
-app.use("/api/roleAssignments", roleAssignmentRoutes);
-app.use("/api/permissions", permissionRoutes);
+// app.use("/api/users", userRoutes);
+// app.use("/api/admins", adminRoutes);
+// app.use("/api/customers", customerRoutes);
+// app.use("/api/roles", roleRoutes);
+// app.use("/api/roleAssignments", roleAssignmentRoutes);
+// app.use("/api/permissions", permissionRoutes);
+
+app.use(`/api/${apiVersion}/users`, userRoutes);
+app.use(`/api/${apiVersion}/admins`, adminRoutes);
+app.use(`/api/${apiVersion}/customers`, customerRoutes);
+app.use(`/api/${apiVersion}/roles`, roleRoutes);
+app.use(`/api/${apiVersion}/roleAssignments`, roleAssignmentRoutes);
+app.use(`/api/${apiVersion}/permissions`, permissionRoutes);
 
 // MongoDB Connection
 mongoose
