@@ -38,6 +38,67 @@ exports.createGame = async (req, res) => {
   }
 };
 
+// Bulk create games
+exports.bulkCreateGames = async (req, res) => {
+  const games = req.body.games;
+
+  try {
+    const createdGames = [];
+
+    for (const gameData of games) {
+      const {
+        title,
+        description,
+        price,
+        genre,
+        platform,
+        releaseDate,
+        developer,
+        publisher,
+        images,
+        videos,
+        discountedPrice,
+        promoCode,
+      } = gameData;
+
+      const game = new Game({
+        title,
+        description,
+        price,
+        genre,
+        platform,
+        releaseDate,
+        developer,
+        publisher,
+        discountedPrice,
+        promoCode,
+      });
+
+      const savedGame = await game.save();
+
+      const gameDetails = new GameMediaDetails({
+        gameId: savedGame._id,
+        images,
+        videos,
+      });
+
+      await gameDetails.save();
+
+      createdGames.push({
+        game: savedGame,
+        gameDetails,
+      });
+    }
+
+    res
+      .status(201)
+      .json({ message: "Games created successfully", createdGames });
+  } catch (error) {
+    console.error("Error creating games:", error);
+    res.status(500).json({ message: "Error creating games", error });
+  }
+};
+
 // Get all games
 exports.getAllGames = async (req, res) => {
   try {

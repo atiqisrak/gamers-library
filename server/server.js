@@ -17,6 +17,7 @@ const permissionRoutes = require("./routes/permissionRoutes");
 const roleAssignmentRoutes = require("./routes/roleAssignmentRoutes");
 const gameRoutes = require("./routes/game/gameRoutes");
 const gameDetailsRoutes = require("./routes/game/gameDetailsRoutes");
+const dealRoutes = require("./routes/deal/dealRoutes");
 const { swaggerUi, specs } = require("./swagger");
 
 require("dotenv").config();
@@ -58,6 +59,7 @@ app.use(`/api/${apiVersion}/roleAssignments`, roleAssignmentRoutes);
 app.use(`/api/${apiVersion}/permissions`, permissionRoutes);
 app.use(`/api/${apiVersion}/games`, gameRoutes);
 app.use(`/api/${apiVersion}/gameDetails`, gameDetailsRoutes);
+app.use(`/api/${apiVersion}/deals`, dealRoutes);
 
 // MongoDB Connection
 mongoose
