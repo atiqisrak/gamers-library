@@ -1,3 +1,4 @@
+// controllers/game/gameDetailsController.js
 const GameMediaDetails = require("../../models/game/gameDetails");
 const Game = require("../../models/game/game");
 
@@ -6,17 +7,22 @@ exports.createGameDetails = async (req, res) => {
   const { gameId, additionalDetails } = req.body;
 
   try {
+    console.log("Request files:", req.files);
+
     const game = await Game.findById(gameId);
     if (!game) {
       return res.status(404).json({ message: "Game not found" });
     }
 
     const imageURLs = req.files.images
-      ? req.files.images.map((file) => `/uploads/${file.filename}`)
+      ? req.files.images.map((file) => file.path)
       : [];
     const videoURLs = req.files.videos
-      ? req.files.videos.map((file) => `/uploads/${file.filename}`)
+      ? req.files.videos.map((file) => file.path)
       : [];
+
+    console.log("Image URLs:", imageURLs);
+    console.log("Video URLs:", videoURLs);
 
     const gameDetails = new GameMediaDetails({
       gameId,
