@@ -41,6 +41,20 @@ exports.createGameDetails = async (req, res) => {
   }
 };
 
+// Get all game details
+exports.getAllGameDetails = async (req, res) => {
+  try {
+    const gameDetails = await GameMediaDetails.find().populate("gameId");
+    if (!gameDetails.length) {
+      return res.status(404).json({ message: "No game details found" });
+    }
+    res.status(200).json(gameDetails);
+  } catch (error) {
+    console.error("Error fetching all game details:", error);
+    res.status(500).json({ message: "Error fetching all game details", error });
+  }
+};
+
 // Get media and details for a game by Game ID
 exports.getGameDetailsByGameId = async (req, res) => {
   const { gameId } = req.params;

@@ -4,6 +4,7 @@ const {
   getGameDetailsByGameId,
   updateGameDetailsByGameId,
   deleteGameDetailsByGameId,
+  getAllGameDetails,
 } = require("../../controllers/game/gameDetailsController");
 const upload = require("../../middleware/upload");
 
@@ -18,6 +19,9 @@ router.post(
   ]),
   createGameDetails
 );
+
+// Get all game details
+router.get("/", getAllGameDetails);
 
 // Get media and details for a game by Game ID
 router.get("/:gameId", getGameDetailsByGameId);
