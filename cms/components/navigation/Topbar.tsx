@@ -17,7 +17,7 @@ export default function Topbar() {
       <div className="menu-container flex justify-center">
         {/* Games, Deals, Orders */}
         <nav className="flex space-x-4 gap-20 font-bold">
-          <Link href="/games/latest" className="rounded-xl px-4 py-1 bg-yellow-500 text-black">
+          <Link href="/games" className="rounded-xl px-4 py-1 bg-yellow-500 text-black">
             Games
           </Link>
           <Link href="/deals/month" className="rounded-xl px-4 py-1 bg-yellow-500 text-black">

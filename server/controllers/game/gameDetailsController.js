@@ -60,7 +60,9 @@ exports.getGameDetailsByGameId = async (req, res) => {
   const { gameId } = req.params;
 
   try {
-    const gameDetails = await GameMediaDetails.findOne({ gameId });
+    const gameDetails = await GameMediaDetails.findOne({ gameId }).populate(
+      "gameId"
+    );
     if (!gameDetails) {
       return res.status(404).json({ message: "Game details not found" });
     }
@@ -72,9 +74,10 @@ exports.getGameDetailsByGameId = async (req, res) => {
 };
 
 // Update media and details for a game by Game ID
+// Update media and details for a game by Game ID
 exports.updateGameDetailsByGameId = async (req, res) => {
   const { gameId } = req.params;
-  const { images, videos, additionalDetails } = req.body;
+  const { additionalDetails } = req.body;
 
   try {
     const gameDetails = await GameMediaDetails.findOne({ gameId });
@@ -82,8 +85,15 @@ exports.updateGameDetailsByGameId = async (req, res) => {
       return res.status(404).json({ message: "Game details not found" });
     }
 
-    gameDetails.images = images || gameDetails.images;
-    gameDetails.videos = videos || gameDetails.videos;
+    const imageURLs = req.files.images
+      ? req.files.images.map((file) => file.path)
+      : gameDetails.images;
+    const videoURLs = req.files.videos
+      ? req.files.videos.map((file) => file.path)
+      : gameDetails.videos;
+
+    gameDetails.images = imageURLs;
+    gameDetails.videos = videoURLs;
     gameDetails.additionalDetails =
       additionalDetails || gameDetails.additionalDetails;
     gameDetails.updatedAt = Date.now();

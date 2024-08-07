@@ -7,7 +7,16 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "games", // Folder name in your Cloudinary account
-    allowed_formats: ["jpg", "jpeg", "png", "gif", "webp", "mp4"],
+    allowed_formats: [
+      "jpg",
+      "jpeg",
+      "png",
+      "gif",
+      "webp",
+      "avif",
+      "svg",
+      "mp4",
+    ],
   },
 });
 
