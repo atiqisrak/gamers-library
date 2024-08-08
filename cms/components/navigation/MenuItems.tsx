@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
+import { it } from "node:test";
 import { useState } from "react";
+import { Command, CommandGroup, CommandItem, CommandList } from "../ui/command";
 
 export default function MenuItems() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -42,13 +44,68 @@ export default function MenuItems() {
     }
   ];
 
+  const menuList = [
+    {
+      group: "Games",
+      items: [
+        {
+          name: "All Games",
+          link: "/games"
+        },
+        {
+          name: "Best Selling Games",
+          link: "/games/best-selling"
+        }
+      ]
+    },
+    {
+      group: "Deals",
+      items: [
+        {
+          name: "August",
+          link: "/deals/august"
+        },
+        {
+          name: "Upcoming",
+          link: "/deals/upcoming"
+        }
+      ]
+    },
+    {
+      group: "Orders",
+      items: [
+        {
+          name: "All Orders",
+          link: "/orders"
+        },
+        {
+          name: "Pending Orders",
+          link: "/orders/pending"
+        }
+      ]
+    },
+    {
+      group: "Users",
+      items: [
+        {
+          name: "All Users",
+          link: "/users"
+        },
+        {
+          name: "Active Users",
+          link: "/users/active"
+        }
+      ]
+    }
+  ];
+
   const handleMenuClick = (name: string) => {
     setOpenMenu(openMenu === name ? null : name);
   };
 
   return (
     <div className="w-64">
-      {menuItems.map((item, index) => (
+      {/* {menuItems.map((item, index) => (
         <div key={index}>
           {item.subMenuItems ? (
             <div>
@@ -83,7 +140,24 @@ export default function MenuItems() {
             </Link>
           )}
         </div>
-      ))}
+      ))} */}
+      <div className="grow">
+      <Command className="w-full bg-gray-800 text-white rounded-lg shadow-lg">
+        <CommandList className="text-white">
+          {menuList.map((menu: any, key: number) => (
+            <CommandGroup key={key} heading={menu.group} className="mb-4">
+              {menu.items.map((option: any, optionKey: number) => (
+                <CommandItem key={optionKey} className="hover:bg-gray-700 hover:text-yellow-400 transition-colors duration-200">
+                  <Link href={option.link} className="text-white">
+                    {option.name}
+                  </Link>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          ))}
+        </CommandList>
+      </Command>
+    </div>
     </div>
   );
 }

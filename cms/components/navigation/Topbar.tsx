@@ -5,7 +5,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 
 export default function Topbar() {
   return (
-    <div className="px-4 py-2 border-b border-gray-200 bg-gray-800 text-white grid grid-cols-3 items-center">
+    <div className="px-4 py-2 bg-gray-800 text-white grid grid-cols-3 items-center drop-shadow-md sticky top-0 z-10">
       <div className="logo-container pl-10">
         <Image
           src="/images/logo_horizontal.png"
