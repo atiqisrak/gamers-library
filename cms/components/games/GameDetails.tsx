@@ -37,7 +37,7 @@ export default function GameDetails({ gameData } : { gameData: any }) {
                 </h3>
                 <div className="flex items-center gap-3">
                 {
-                    gameData?.gameId?.genre.map((genre, index) => (
+                    gameData?.gameId?.genre.map((genre: string, index: number) => (
                         <Badge key={index}
                         className="bg-yellow-400 text-gray-800 flex items-center justify-center w-fit-content">
                             {genre}</Badge>

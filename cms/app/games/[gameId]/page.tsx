@@ -5,8 +5,13 @@ import GameDetails from "@/components/games/GameDetails";
 import { Card } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 
-export default function GameDetailsPage({params}) {
+interface GameDetailsPageProps {
+  params: {
+    gameId: string;
+  };
+}
 
+export default function GameDetailsPage({ params }: GameDetailsPageProps) {
   const [gameDetails, setGameDetails] = useState({});
 
   const fetchGameDetails = async () => {
@@ -24,7 +29,7 @@ export default function GameDetailsPage({params}) {
 
   useEffect(() => {
     fetchGameDetails();
-  }, []);
+  }, [params.gameId]); // Make sure to include params.gameId in the dependency array
 
   console.log("Game Details: ", gameDetails);
 
