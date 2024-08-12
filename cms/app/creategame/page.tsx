@@ -9,7 +9,7 @@ export default function page() {
                 color: "#333",
                 margin: "1rem 0" }}>
 
-                Let's create a game
+                Let&apos;s create a game
             </h1>
             <CreateGameForm />
         </div>
