@@ -18,6 +18,10 @@ export default function MenuItems() {
         {
           name: "Best Selling Games",
           link: "/games/best-selling"
+        },
+        {
+          name: "Create Game",
+          link: "/creategame"
         }
       ]
     },
@@ -104,11 +108,11 @@ export default function MenuItems() {
   };
 
   return (
-    <div className="w-64">
-      {/* {menuItems.map((item, index) => (
+    <div className="w-64 sticky top-80">
+      {menuItems.map((item, index) => (
         <div key={index}>
           {item.subMenuItems ? (
-            <div>
+            <div className="mb-4">
               <button
                 onClick={() => handleMenuClick(item.name)}
                 className="w-full text-left px-4 py-2 hover:bg-yellow-400 flex justify-between items-center rounded-lg"
@@ -135,13 +139,13 @@ export default function MenuItems() {
               )}
             </div>
           ) : (
-            <Link href={item.link} className="block px-4 py-2 hover:bg-yellow-400 rounded-lg">
+            <Link href={item.link} className="block px-4 py-2 hover:bg-yellow-400 rounded-lg mb-4">
               {item.name}
             </Link>
           )}
         </div>
-      ))} */}
-      <div className="grow">
+      ))}
+      {/* <div className="grow">
       <Command className="w-full bg-gray-800 text-white rounded-lg shadow-lg">
         <CommandList className="text-white">
           {menuList.map((menu: any, key: number) => (
@@ -157,7 +161,7 @@ export default function MenuItems() {
           ))}
         </CommandList>
       </Command>
-    </div>
+    </div> */}
     </div>
   );
 }

@@ -5,8 +5,7 @@ export default function Home() {
   return (
     <main>
       <center>
-        <h1>Welcome to ShadCN</h1>
-        <Button>Click me</Button>
+        <h1>Welcome to Gamer's Library</h1>
       </center>
     </main>
   );
